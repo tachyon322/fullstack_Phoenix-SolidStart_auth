@@ -67,7 +67,8 @@ GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 
 FRONTEND_URL=http://localhost:3000
-```> **Important:** Ensure you replace the placeholder values with your actual database credentials and secret keys.
+```
+> **Important:** Ensure you replace the placeholder values with your actual database credentials and secret keys.
 
 ---
 

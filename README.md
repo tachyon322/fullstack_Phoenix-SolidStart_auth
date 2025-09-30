@@ -22,7 +22,6 @@ This project serves as a practical demonstration of implementing a secure authen
 *   [Key Features](#key-features)
 *   [Environment Configuration](#environment-configuration)
 *   [Installation Guide](#installation-guide)
-*   [Stay Connected](#stay-connected)
 
 ---
 
@@ -81,16 +80,3 @@ For the backend, you'll need to fetch the Elixir dependencies using `mix`:
 ```sh
 mix deps.get
 ```
-
----
-
-### **Stay Connected**
-
-<p align="center">
-  <a href="https://www.linkedin.com/in/your-profile" target="_blank">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
-  </a>
-  <a href="https://twitter.com/your-profile" target="_blank">
-    <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter">
-  </a>
-</p>

@@ -32,6 +32,13 @@ This project serves as a practical demonstration of implementing a secure authen
 *   **Easy to Follow:** Well-structured and commented code to guide you through the authentication flow.
 
 ---
+### **Google Oauth**
+
+When user clicks Google login button the app navigates to: http://localhost:4000/auth/google (can be edited in frontend/src/routes/index.ts)
+
+After selecting google account user get redirected back to: frontend_url = System.get_env("FRONTEND_URL") || "http://localhost:3000" (auth_controller.ex file)
+
+---
 
 ### **Environment Configuration**
 
@@ -44,13 +51,20 @@ Properly setting up your environment variables is crucial for the application to
 
 #### **.ENV backend-auth sample**
 ```
-DATABASE_URL=
-DB_USERNAME=
-DB_PASSWORD=
-DB_HOSTNAME=
-DB_NAME=
-SECRET_KEY_BASE=
-GUARDIAN_SECRET=
+DATABASE_URL=postgresql://user:password@localhost:5432/phx-auth
+
+DB_USERNAME=user
+DB_PASSWORD=password
+DB_HOSTNAME=localhost
+DB_NAME=phx-auth
+
+SECRET_KEY_BASE=hash
+GUARDIAN_SECRET=hash
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+FRONTEND_URL=http://localhost:3000
 ```
 > **Important:** Ensure you replace the placeholder values with your actual database credentials and secret keys.
 

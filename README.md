@@ -20,8 +20,10 @@ This project serves as a practical demonstration of implementing a secure authen
 ### **Table of Contents**
 
 *   [Key Features](#key-features)
+*   [Google Oauth](#google-oauth)
 *   [Environment Configuration](#environment-configuration)
 *   [Installation Guide](#installation-guide)
+*   [API Endpoints & cURL Examples](#api-endpoints--curl-examples)
 
 ---
 
@@ -34,9 +36,9 @@ This project serves as a practical demonstration of implementing a secure authen
 ---
 ### **Google Oauth**
 
-When user clicks Google login button the app navigates to: http://localhost:4000/auth/google (can be edited in frontend/src/routes/index.ts)
+When a user clicks the Google login button, the app navigates to: `http://localhost:4000/auth/google` (can be edited in `frontend/src/routes/index.ts`)
 
-After selecting google account user get redirected back to: frontend_url = System.get_env("FRONTEND_URL") || "http://localhost:3000" (auth_controller.ex file)
+After selecting a Google account, the user gets redirected back to: `frontend_url = System.get_env("FRONTEND_URL") || "http://localhost:3000"` (as configured in the `auth_controller.ex` file).
 
 ---
 
@@ -65,8 +67,7 @@ GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 
 FRONTEND_URL=http://localhost:3000
-```
-> **Important:** Ensure you replace the placeholder values with your actual database credentials and secret keys.
+```> **Important:** Ensure you replace the placeholder values with your actual database credentials and secret keys.
 
 ---
 
@@ -93,4 +94,53 @@ For the backend, you'll need to fetch the Elixir dependencies using `mix`:
 
 ```sh
 mix deps.get
+```
+
+---
+
+### **API Endpoints & cURL Examples**
+
+Below are examples of how to interact with the API endpoints using cURL.
+
+#### **Register**
+
+This endpoint creates a new user.
+
+```sh
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"user": {"email": "test@example.com", "password": "yourpassword"}}' \
+  http://localhost:4000/api/register
+```
+
+#### **Login**
+
+This endpoint authenticates a user and returns an HttpOnly cookie. We use `-c cookie.txt` to save the cookie for subsequent requests.
+
+```sh
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"email": "test@example.com", "password": "yourpassword"}' \
+  -c cookie.txt \
+  http://localhost:4000/api/login
+```
+
+#### **Get Current User (Protected Route)**
+
+This is a protected endpoint that requires a valid session cookie. We use `-b cookie.txt` to send the cookie that was saved during login.
+
+```sh
+curl -X GET \
+  -b cookie.txt \
+  http://localhost:4000/api/me
+```
+
+#### **Logout**
+
+This endpoint invalidates the user's session. It also requires the session cookie to identify which user to log out.
+
+```sh
+curl -X POST \
+  -b cookie.txt \
+  http://localhost:4000/api/logout
 ```

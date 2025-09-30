@@ -55,7 +55,9 @@ defmodule GuardianAuthApi.MixProject do
       {:guardian, "~> 2.4"},
       {:bcrypt_elixir, "~> 3.0"},
       {:dotenvy, "~> 0.8.0"},
-      {:cors_plug, "~> 3.0"}
+      {:cors_plug, "~> 3.0"},
+      {:ueberauth, "~> 0.10"},
+      {:ueberauth_google, "~> 0.12"}
     ]
   end
 

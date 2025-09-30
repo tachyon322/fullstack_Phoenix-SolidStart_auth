@@ -6,6 +6,10 @@ defmodule GuardianAuthApi.Accounts.User do
     field :email, :string
     field :password_hash, :string
     field :password, :string, virtual: true
+    field :provider, :string
+    field :provider_id, :string
+    field :provider_token, :string
+    field :provider_email, :string
 
     timestamps(type: :utc_datetime)
   end
@@ -20,6 +24,19 @@ defmodule GuardianAuthApi.Accounts.User do
     |> validate_length(:password, min: 6, max: 72)
     |> unique_constraint(:email)
     |> hash_password()
+  end
+
+  @doc """
+  Changeset for OAuth registration.
+  """
+  def oauth_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:email, :provider, :provider_id, :provider_token, :provider_email])
+    |> validate_required([:email, :provider, :provider_id])
+    |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
+    |> validate_length(:email, max: 160)
+    |> unique_constraint(:email)
+    |> unique_constraint([:provider, :provider_id])
   end
 
   defp hash_password(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do

@@ -163,4 +163,59 @@ defmodule GuardianAuthApi.Accounts do
     |> User.changeset(attrs)
     |> Repo.insert()
   end
+
+  @doc """
+  Gets a user by provider and provider_id.
+
+  ## Examples
+
+      iex> get_user_by_provider("google", "123456")
+      %User{}
+
+      iex> get_user_by_provider("google", "nonexistent")
+      nil
+
+  """
+  def get_user_by_provider(provider, provider_id) do
+    Repo.get_by(User, provider: provider, provider_id: provider_id)
+  end
+
+  @doc """
+  Registers or updates a user via OAuth.
+
+  ## Examples
+
+      iex> upsert_oauth_user(%{email: "user@example.com", provider: "google", provider_id: "123"})
+      {:ok, %User{}}
+
+  """
+  def upsert_oauth_user(attrs) do
+    provider = Map.get(attrs, "provider") || Map.get(attrs, :provider)
+    provider_id = Map.get(attrs, "provider_id") || Map.get(attrs, :provider_id)
+
+    case get_user_by_provider(provider, provider_id) do
+      nil ->
+        # Check if user exists by email
+        email = Map.get(attrs, "email") || Map.get(attrs, :email)
+        case get_user_by_email(email) do
+          nil ->
+            # Create new user
+            %User{}
+            |> User.oauth_changeset(attrs)
+            |> Repo.insert()
+
+          existing_user ->
+            # Link OAuth to existing user
+            existing_user
+            |> User.oauth_changeset(attrs)
+            |> Repo.update()
+        end
+
+      existing_user ->
+        # Update existing OAuth user
+        existing_user
+        |> User.oauth_changeset(attrs)
+        |> Repo.update()
+    end
+  end
 end

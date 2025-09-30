@@ -6,6 +6,14 @@ defmodule GuardianAuthApiWeb.Router do
     plug :fetch_session
   end
 
+  pipeline :browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+  end
+
   pipeline :auth do
     plug Guardian.Plug.Pipeline,
       module: GuardianAuthApi.Guardian,
@@ -22,6 +30,13 @@ defmodule GuardianAuthApiWeb.Router do
     # Public routes
     post "/register", AuthController, :register
     post "/login", AuthController, :login
+  end
+
+  scope "/auth", GuardianAuthApiWeb do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
   end
 
   scope "/api", GuardianAuthApiWeb do

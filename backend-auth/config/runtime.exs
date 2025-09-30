@@ -29,6 +29,16 @@ if guardian_secret do
     secret_key: guardian_secret
 end
 
+# Configure Ueberauth Google OAuth
+google_client_id = System.get_env("GOOGLE_CLIENT_ID")
+google_client_secret = System.get_env("GOOGLE_CLIENT_SECRET")
+
+if google_client_id && google_client_secret do
+  config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+    client_id: google_client_id,
+    client_secret: google_client_secret
+end
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

@@ -9,14 +9,17 @@ export default function Nav() {
   return (
     <nav class="bg-sky-800">
       <ul class="container flex items-center p-3 text-gray-200">
+        <li class={`border-b-2 ${active("/register")} mx-1.5 sm:mx-6`}>
+          <a href="/register">Register</a>
+        </li>
         <li class={`border-b-2 ${active("/")} mx-1.5 sm:mx-6`}>
-          <a href="/">Home</a>
+          <a href="/">Login</a>
         </li>
         <li class={`border-b-2 ${active("/about")} mx-1.5 sm:mx-6`}>
           <a href="/about">About</a>
         </li>
         <li class={`border-b-2 ${active("/logout")} mx-1.5 sm:mx-6`}>
-          <a href="/logout">logout</a>
+          <a href="/logout">Logout</a>
         </li>
       </ul>
     </nav>

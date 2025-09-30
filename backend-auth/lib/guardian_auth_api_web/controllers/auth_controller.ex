@@ -5,7 +5,8 @@ defmodule GuardianAuthApiWeb.AuthController do
 
   action_fallback GuardianAuthApiWeb.FallbackController
 
-  def register(conn, %{"user" => user_params}) do
+  def register(conn, %{"email" => email, "password" => password}) do
+    user_params = %{"email" => email, "password" => password}
     case Accounts.register_user(user_params) do
       {:ok, user} ->
         conn

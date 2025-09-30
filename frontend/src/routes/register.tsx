@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js";
 
-export default function Home() {
+export default function Register() {
   const [email, setEmail] = createSignal("user@example.com");
   const [password, setPassword] = createSignal("password123");
   const [output, setOutput] = createSignal("no data yet");
@@ -13,7 +13,7 @@ export default function Home() {
     const pwd = password();
 
     try {
-      const response = await fetch(`${API_URL}/login`, {
+      const response = await fetch(`${API_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -33,7 +33,7 @@ export default function Home() {
 
   return (
     <main class="text-center mx-auto text-gray-700 p-4">
-      <h1>Login with existing credentials</h1>
+      <h1>Register a new user</h1>
       <form
         onSubmit={handleLogin}
         class="flex gap-3 items-center justify-center"

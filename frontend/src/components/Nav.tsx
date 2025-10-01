@@ -15,8 +15,11 @@ export default function Nav() {
         <li class={`border-b-2 ${active("/")} mx-1.5 sm:mx-6`}>
           <a href="/">Login</a>
         </li>
-        <li class={`border-b-2 ${active("/about")} mx-1.5 sm:mx-6`}>
-          <a href="/about">About</a>
+        <li class={`border-b-2 ${active("/clientsession")} mx-1.5 sm:mx-6`}>
+          <a href="/clientsession">Client-Side session</a>
+        </li>
+        <li class={`border-b-2 ${active("/serversession")} mx-1.5 sm:mx-6`}>
+          <a href="/serversession">Server-Side session</a>
         </li>
         <li class={`border-b-2 ${active("/logout")} mx-1.5 sm:mx-6`}>
           <a href="/logout">Logout</a>

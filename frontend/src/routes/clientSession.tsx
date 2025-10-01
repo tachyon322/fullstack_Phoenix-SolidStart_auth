@@ -11,7 +11,7 @@ const getCurrentUser = async () => {
   });
   
   if (!response.ok) {
-    throw new Error(`Authentication failed: ${response.status}`);
+    
   }
   
   const data = await response.json();
@@ -28,18 +28,20 @@ export default function About() {
       
       <Suspense fallback={<div>Loading user data...</div>}>
         <Show
-          when={!user.error}
+          when={user() && !user.error}
           fallback={
-            <div class="text-red-600">
-              <p>Authentication required</p>
-              <p class="text-sm mt-2">{user.error?.message}</p>
-              <button
-                class="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-                onClick={() => navigate("/")}
-              >
-                Go to Login
-              </button>
-            </div>
+            <Show when={!user.loading}>
+              <div class="text-red-600">
+                <p>Authentication required</p>
+                <p class="text-sm mt-2">{user.error?.message}</p>
+                <button
+                  class="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+                  onClick={() => navigate("/")}
+                >
+                  Go to Login
+                </button>
+              </div>
+            </Show>
           }
         >
           <div class="bg-green-50 p-4 rounded">
